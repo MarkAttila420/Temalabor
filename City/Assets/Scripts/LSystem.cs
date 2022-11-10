@@ -12,6 +12,10 @@ public class LSystem : MonoBehaviour
     [Range(1,10)]
     public int maxDepth = 1;
 
+    public bool IgnoreRandom = true;
+    [Range(0, 1)]
+    public float chanceToIgnore=0.3f;
+
     private void Start()
     {
         Debug.Log(Generate());
@@ -46,6 +50,7 @@ public class LSystem : MonoBehaviour
         {
             if(rule.letter==c.ToString())
             {
+                if (IgnoreRandom && UnityEngine.Random.value < chanceToIgnore&&depth>1) return;
                 newSentence.Append(Rekurzio(rule.getResult(),depth+1));
             }
 

@@ -10,8 +10,15 @@ public class Rules : ScriptableObject
     [SerializeField]
     private string[] results = null;
 
+    [SerializeField]
+    private bool random=false;
+
     public string getResult()
     {
+        if (random)
+        {
+            return results[UnityEngine.Random.Range(0,results.Length-1)];
+        }
         return results[0];
     }
 }
