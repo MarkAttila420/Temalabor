@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using static SimpleVisualizer;
 
@@ -17,13 +18,13 @@ public class Visualizer : MonoBehaviour
     {
         get
         {
-            if (length > 1)
+            if (length > 0)
             {
                 return length;
             }
             else
             {
-                return 2;
+                return length;
             }
         }
         set => length = value;
@@ -73,8 +74,8 @@ public class Visualizer : MonoBehaviour
                     break;
                 case EncodingLetters.draw:
                     tempPosition = currentPosition;
-                    currentPosition += direction * length;
-                    roadHelper.PlaceRoad(tempPosition,Vector3Int.RoundToInt(direction),length);
+                    currentPosition += direction * Length;
+                    roadHelper.PlaceRoad(tempPosition,Vector3Int.RoundToInt(direction),Length);
                     Length -= 2;
                     positions.Add(currentPosition);
                     break;
@@ -88,5 +89,6 @@ public class Visualizer : MonoBehaviour
                     break;
             }
         }
+        roadHelper.FixRoad();
     }
 }

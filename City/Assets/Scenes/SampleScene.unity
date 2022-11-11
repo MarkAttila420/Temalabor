@@ -423,11 +423,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a144569df8e9df345b4ce4455711f736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  straight: {fileID: 919132149155446097, guid: 92f3d772a0853034b9747162cfcc2f46, type: 3}
-  corner: {fileID: 919132149155446097, guid: 1f896bb55c07ccb4a90676e51be838f6, type: 3}
-  end: {fileID: 919132149155446097, guid: 9651f904f3a132d4d9324bf1279a636c, type: 3}
-  intersect3: {fileID: 919132149155446097, guid: 4d2a9fcc3ae596d4a8f3b08ec2039135, type: 3}
-  intersect4: {fileID: 919132149155446097, guid: 7b0c3e964ceaae9418bfdaad441e3f98, type: 3}
+  straight: {fileID: 919132149155446097, guid: c761ff2e3155da74cb75f243669371d6, type: 3}
+  corner: {fileID: 919132149155446097, guid: ce243cace298bff4e8cf560b5d04f107, type: 3}
+  end: {fileID: 919132149155446097, guid: 28f78fe67690404419ff43105dc147ff, type: 3}
+  intersect3: {fileID: 919132149155446097, guid: 35201a68a35c3c640a333cd779605657, type: 3}
+  intersect4: {fileID: 919132149155446097, guid: ba66bcac8e98e60419d4f0cb769e4346, type: 3}
 --- !u!4 &1391553516
 Transform:
   m_ObjectHideFlags: 0
@@ -475,7 +475,7 @@ MonoBehaviour:
   rules:
   - {fileID: 11400000, guid: 9e63df3cbc231664da915a28895d9b3f, type: 2}
   root: '[F]++F'
-  maxDepth: 2
+  maxDepth: 3
   IgnoreRandom: 1
   chanceToIgnore: 0.3
 --- !u!4 &1862837234
