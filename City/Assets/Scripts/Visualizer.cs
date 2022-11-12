@@ -11,20 +11,20 @@ public class Visualizer : MonoBehaviour
 
     public RoadHelper roadHelper;
 
-    private int length=10;
+    private int length=8;
     private float angle = 90;
 
     public int Length
     {
         get
         {
-            if (length > 0)
+            if (length > 1)
             {
                 return length;
             }
             else
             {
-                return length;
+                return 2;
             }
         }
         set => length = value;
