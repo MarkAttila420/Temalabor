@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "City/Rules")]
+[CreateAssetMenu(menuName = "Rule")]
 public class Rules : ScriptableObject
 {
     public string letter;
@@ -17,7 +17,7 @@ public class Rules : ScriptableObject
     {
         if (random)
         {
-            return results[UnityEngine.Random.Range(0,results.Length-1)];
+            return results[UnityEngine.Random.Range(0,results.Length)];
         }
         return results[0];
     }

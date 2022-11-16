@@ -10,8 +10,8 @@ public class SimpleVisualizer : MonoBehaviour
     public GameObject prefab;
     public Material lineMaterial;
 
-    private int length = 10;
-    private float angle = 100;
+    private int length = 8;
+    private float angle = 90;
 
     public int Length
     {
@@ -116,6 +116,7 @@ public class SimpleVisualizer : MonoBehaviour
         save = '[',
         load = ']',
         draw = 'F',
+        draw2= 'G',
         turnRight = '+',
         turnLeft = '-'
     }
