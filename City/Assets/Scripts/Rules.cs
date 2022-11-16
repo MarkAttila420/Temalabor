@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "City/Rules")]
+[CreateAssetMenu(menuName = "Rule")]
 public class Rules : ScriptableObject
 {
     public string letter;

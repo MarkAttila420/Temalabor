@@ -116,6 +116,7 @@ public class SimpleVisualizer : MonoBehaviour
         save = '[',
         load = ']',
         draw = 'F',
+        draw2= 'G',
         turnRight = '+',
         turnLeft = '-'
     }

@@ -14,4 +14,18 @@ public static class PlacementHelper
         if (collection.Contains(pos - new Vector3Int(0, 0, 1))) neighbourDirections.Add(Direction.Down);
         return neighbourDirections;
     }
+    internal static Vector3Int GetOffset(Direction dir)
+    {
+        switch (dir)
+        {
+            case Direction.Up:
+                return new Vector3Int(0, 0, 1);
+            case Direction.Down:
+                return new Vector3Int(0, 0, -1);
+            case Direction.Left:
+                return Vector3Int.left;
+            default:
+                return Vector3Int.right;
+        }
+    }
 }

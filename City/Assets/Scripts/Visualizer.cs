@@ -10,8 +10,9 @@ public class Visualizer : MonoBehaviour
     List<Vector3> positions = new List<Vector3>();
 
     public RoadHelper roadHelper;
+    public BuildingHelper buildingHelper;
 
-    private int length=8;
+    private int length=2;
     private float angle = 90;
 
     public int Length
@@ -24,7 +25,7 @@ public class Visualizer : MonoBehaviour
             }
             else
             {
-                return 2;
+                return UnityEngine.Random.Range(2,4);
             }
         }
         set => length = value;
@@ -76,7 +77,14 @@ public class Visualizer : MonoBehaviour
                     tempPosition = currentPosition;
                     currentPosition += direction * Length;
                     roadHelper.PlaceRoad(tempPosition,Vector3Int.RoundToInt(direction),Length);
-                    Length -= 2;
+                    //Length -= 2;
+                    positions.Add(currentPosition);
+                    break;
+                case EncodingLetters.draw2:
+                    tempPosition = currentPosition;
+                    currentPosition += direction * Length;
+                    roadHelper.PlaceRoad(tempPosition, Vector3Int.RoundToInt(direction), Length);
+                    //Length -= 2;
                     positions.Add(currentPosition);
                     break;
                 case EncodingLetters.turnRight:
@@ -90,5 +98,6 @@ public class Visualizer : MonoBehaviour
             }
         }
         roadHelper.FixRoad();
+        buildingHelper.placeBuildings(roadHelper.getRoads());
     }
 }

@@ -9,8 +9,8 @@ public class LSystem : MonoBehaviour
 {
     public Rules[] rules;
     public string root;
-    [Range(1,10)]
-    public int maxDepth = 1;
+    [Range(6,10)]
+    public int maxDepth = 6;
 
     public bool IgnoreRandom = true;
     [Range(0, 1)]
