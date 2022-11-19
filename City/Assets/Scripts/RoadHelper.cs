@@ -26,7 +26,6 @@ public class RoadHelper : MonoBehaviour
             if (!dictionary.ContainsKey(pos))
             {
                 var road = Instantiate(straight, pos, rotation);
-                Debug.Log($"{pos.x} {pos.y} {pos.z}");
                 dictionary.Add(pos, road);
                 if (i == 0 || i == length - 1)
                 {

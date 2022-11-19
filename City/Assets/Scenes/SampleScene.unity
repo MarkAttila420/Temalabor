@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.17702192, g: 0.22160037, b: 0.30387235, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -199,19 +199,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac73d51819488034abe2fc810301f5b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smallHouses:
-  - {fileID: 919132149155446097, guid: a909f333b4668fe4699fc9e33a33273d, type: 3}
-  - {fileID: 919132149155446097, guid: 7db3b146d06ded74d8b4eb7880418722, type: 3}
-  - {fileID: 919132149155446097, guid: 91e6157cbb25cf64780a770fccb30f02, type: 3}
-  - {fileID: 919132149155446097, guid: 53a28fc3ee973c04e813db4468575b2d, type: 3}
-  - {fileID: 919132149155446097, guid: a9879e255e4a471479aa83309cca2f99, type: 3}
-  - {fileID: 919132149155446097, guid: b5cdf5a50b317c84b926896b3757aef3, type: 3}
-  - {fileID: 919132149155446097, guid: 47942a4e60ed37e4d8ceffa517fe418c, type: 3}
-  - {fileID: 919132149155446097, guid: 9099abfd024564a4aaed7e85fcd3ea4a, type: 3}
-  - {fileID: 919132149155446097, guid: d5376a91ea0e0bb4695991d7791b8917, type: 3}
-  - {fileID: 919132149155446097, guid: aa514a8fd05199f4e8254163edf84ae6, type: 3}
-  - {fileID: 919132149155446097, guid: e624ee74ec2d9394bb8594d29580dec6, type: 3}
-  - {fileID: 919132149155446097, guid: 5e2c4a70cae53e5469c0fa6d8a8739a3, type: 3}
+  minimumMiddle: 1
+  maximumMiddle: 10
+  buildings:
+  - prefabs:
+    - {fileID: 919132149155446097, guid: b5cdf5a50b317c84b926896b3757aef3, type: 3}
+    - {fileID: 919132149155446097, guid: a9879e255e4a471479aa83309cca2f99, type: 3}
+    - {fileID: 919132149155446097, guid: 53a28fc3ee973c04e813db4468575b2d, type: 3}
+    - {fileID: 919132149155446097, guid: 91e6157cbb25cf64780a770fccb30f02, type: 3}
+    - {fileID: 919132149155446097, guid: 7db3b146d06ded74d8b4eb7880418722, type: 3}
+    - {fileID: 919132149155446097, guid: 5e2c4a70cae53e5469c0fa6d8a8739a3, type: 3}
+    - {fileID: 919132149155446097, guid: e624ee74ec2d9394bb8594d29580dec6, type: 3}
+    - {fileID: 919132149155446097, guid: aa514a8fd05199f4e8254163edf84ae6, type: 3}
+    - {fileID: 919132149155446097, guid: d5376a91ea0e0bb4695991d7791b8917, type: 3}
+    - {fileID: 919132149155446097, guid: 9099abfd024564a4aaed7e85fcd3ea4a, type: 3}
+    - {fileID: 919132149155446097, guid: 47942a4e60ed37e4d8ceffa517fe418c, type: 3}
+    - {fileID: 919132149155446097, guid: a909f333b4668fe4699fc9e33a33273d, type: 3}
+    size: 1
+  - prefabs:
+    - {fileID: 919132149155446097, guid: 94a4372a57521004883639b823d5f55c, type: 3}
+    - {fileID: 919132149155446097, guid: 259c556e3e5bcd54d9c612df31a574f8, type: 3}
+    - {fileID: 919132149155446097, guid: f43e5dde1b98b9e4cb243942ea951365, type: 3}
+    size: 1
 --- !u!4 &629220083
 Transform:
   m_ObjectHideFlags: 0
@@ -256,7 +265,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -313,14 +322,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0.49250564, y: -0.25448078, z: 0.15320985, w: 0.81804925}
+  m_LocalPosition: {x: 0, y: 10.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 62.1, y: -34.56, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

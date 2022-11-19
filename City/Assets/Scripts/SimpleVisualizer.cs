@@ -110,14 +110,5 @@ public class SimpleVisualizer : MonoBehaviour
         lineRenderer.SetPosition(1, start);
     }
 
-    public enum EncodingLetters
-    {
-        unknown = '1',
-        save = '[',
-        load = ']',
-        draw = 'F',
-        draw2= 'G',
-        turnRight = '+',
-        turnLeft = '-'
-    }
+    
 }
