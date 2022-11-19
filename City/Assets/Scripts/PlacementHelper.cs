@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,22 @@ public static class PlacementHelper
         if (collection.Contains(pos - new Vector3Int(0, 0, 1))) neighbourDirections.Add(Direction.Down);
         return neighbourDirections;
     }
+
+    public static Direction GetDirection(Direction dir)
+    {
+        switch (dir)
+        {
+            case Direction.Up:
+                return Direction.Down;
+            case Direction.Down:
+                return Direction.Up;
+            case Direction.Left:
+                return Direction.Right;
+            default:
+                return Direction.Left;
+        }
+    }
+
     internal static Vector3Int GetOffset(Direction dir)
     {
         switch (dir)

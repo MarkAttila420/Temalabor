@@ -61,9 +61,11 @@
     <Compile Include="Assets\Scripts\AgentParameters.cs" />
     <Compile Include="Assets\Scripts\LSystem.cs" />
     <Compile Include="Assets\Scripts\RoadHelper.cs" />
+    <Compile Include="Assets\Scripts\EncodingLetters.cs" />
     <Compile Include="Assets\Scripts\Rules.cs" />
     <Compile Include="Assets\Scripts\SimpleVisualizer.cs" />
     <Compile Include="Assets\Scripts\Visualizer.cs" />
+    <Compile Include="Assets\Scripts\BuildingType.cs" />
     <Compile Include="Assets\Scripts\PlacementHelper.cs" />
   </ItemGroup>
   <ItemGroup>
