@@ -9,8 +9,6 @@ public class BuildingType
     [SerializeField]
     private GameObject[] prefabs;
 
-    public int size;
-
     public GameObject getPrefab()
     {
         return prefabs[UnityEngine.Random.Range(0, prefabs.Length)];

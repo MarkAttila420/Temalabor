@@ -3,15 +3,72 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Text;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BuildingHelper : MonoBehaviour
 {
-    public int minimumMiddle = 1;
-    public int maximumMiddle = 10;
+    private int minimumMiddle = 1;
+    private int maximumMiddle = 100;
+    [SerializeField] private Slider maxSlider;
+    [SerializeField] private TextMeshProUGUI maxText;
+    [SerializeField] private Slider minSlider;
+    [SerializeField] private TextMeshProUGUI minText;
     public BuildingType[] buildings;
     public Dictionary<Vector3Int, GameObject> dictionary = new Dictionary<Vector3Int, GameObject>();
 
+
+    private void Start()
+    {
+        maxSlider.value = maximumMiddle;
+        minSlider.value = minimumMiddle;
+        maxText.text = new StringBuilder($"Maximum building height: {maximumMiddle.ToString()}").ToString();
+        minText.text = new StringBuilder($"Minimum building height: {minimumMiddle.ToString()}").ToString();
+        minSlider.onValueChanged.AddListener((value) =>
+        {
+            if (value > maximumMiddle)
+            {
+                minimumMiddle = maximumMiddle;
+                maximumMiddle = (int)Math.Round(value);
+                maxSlider.value = minimumMiddle;
+            }
+            else
+            {
+                minimumMiddle = (int)Math.Round(value);
+            }
+            minText.text = new StringBuilder($"Minimum building height: {minimumMiddle.ToString()}").ToString();
+        });
+        maxSlider.onValueChanged.AddListener((value) =>
+        {
+            if (value < minimumMiddle)
+            {
+                maximumMiddle = minimumMiddle;
+                minimumMiddle = (int)Math.Round(value);
+                minSlider.value = maximumMiddle;
+            }
+            else
+            {
+                maximumMiddle = (int)Math.Round(value);
+            }
+            maxText.text = new StringBuilder($"Maximum building height: {maximumMiddle.ToString()}").ToString();
+        });
+    }
+    
+    public List<Vector3Int> GetBuildings() 
+    {
+        List<Vector3Int> positions = new List<Vector3Int>();
+        foreach (var item in dictionary.Keys)
+        {
+            if (item.y==0)
+            {
+                positions.Add(item); 
+            }
+        }
+        return positions;
+
+    }
     public void placeBuildings(List<Vector3Int> roads)
     {
         Dictionary<Vector3Int, Direction> freeSpots = FindFreeSpots(roads);
@@ -40,7 +97,12 @@ public class BuildingHelper : MonoBehaviour
             else 
             {
                 var building = SpawnTallBuilding(spot.Key, rotation);
-                dictionary.Add(spot.Key, building);
+                int i = 0;
+                foreach (var item in building)
+                {
+                    dictionary.Add(new Vector3Int(spot.Key.x,i,spot.Key.z),item);
+                    i++;
+                }
             }
         }
     }
@@ -69,24 +131,37 @@ public class BuildingHelper : MonoBehaviour
         var newBuilding=Instantiate(buildings[0].getPrefab(), pos, rotation, transform);
         return newBuilding;
     }
-    private GameObject SpawnTallBuilding(Vector3 pos, Quaternion rotation)
+    private List<GameObject> SpawnTallBuilding(Vector3 pos, Quaternion rotation)
     {
-        GameObject[] prefabs= buildings[1].getPrefabs();
-        Mesh baseMesh = prefabs[0].GetComponentInChildren<MeshFilter>().sharedMesh;
-        Mesh middleMesh = prefabs[1].GetComponentInChildren<MeshFilter>().sharedMesh;
-        var baseObject = Instantiate(prefabs[0], pos, rotation, transform);
-
-        float middleSizeSum = 0;
-        var middleSize = middleMesh.bounds.size.y;
-        var baseSize=baseMesh.bounds.size.y;
-        for (int i=0;i<UnityEngine.Random.Range(minimumMiddle, maximumMiddle);i++)
+        List<GameObject> tallBuilding = new List<GameObject>();
+        if (buildings.Length >= 2)
         {
-            Instantiate(prefabs[1], pos + new Vector3(0, baseSize+middleSizeSum, 0), rotation, transform);
-            middleSizeSum+=middleSize;
-        }
+            int buildingsIndex = UnityEngine.Random.Range(1, buildings.Length);
+            GameObject[] prefabs = buildings[buildingsIndex].getPrefabs();
+            Mesh baseMesh = prefabs[0].GetComponentInChildren<MeshFilter>().sharedMesh;
+            Mesh middleMesh = prefabs[1].GetComponentInChildren<MeshFilter>().sharedMesh;
+            var baseObject = Instantiate(prefabs[0], pos, rotation, transform);
+            tallBuilding.Add(baseObject);
 
-        Instantiate(prefabs[2], pos+new Vector3(0, baseSize+middleSizeSum,0), rotation, transform);
-        return baseObject;
+            float middleSizeSum = 0;
+            var middleSize = middleMesh.bounds.size.y;
+            var baseSize = baseMesh.bounds.size.y;
+            for (int i = 0; i < UnityEngine.Random.Range(minimumMiddle, maximumMiddle); i++)
+            {
+                var tempMiddleObject=Instantiate(prefabs[1], pos + new Vector3(0, baseSize + middleSizeSum, 0), rotation, transform);
+                tallBuilding.Add(tempMiddleObject);
+                middleSizeSum += middleSize;
+            }
+
+            var topObject = Instantiate(prefabs[2], pos + new Vector3(0, baseSize + middleSizeSum, 0), rotation, transform);
+            tallBuilding.Add(topObject);
+        }
+        else
+        {
+            var newBuilding = Instantiate(buildings[0].getPrefab(), pos, rotation, transform);
+            tallBuilding.Add(newBuilding);
+        }
+        return tallBuilding;
     }
 
     private Dictionary<Vector3Int, Direction> FindFreeSpots(List<Vector3Int> roads)
@@ -109,5 +184,14 @@ public class BuildingHelper : MonoBehaviour
             }
         }
         return freeSpots;
+    }
+
+    public void delete() 
+    {
+        foreach (var item in dictionary.Values)
+        {
+            Destroy(item);
+        }
+        dictionary.Clear();
     }
 }

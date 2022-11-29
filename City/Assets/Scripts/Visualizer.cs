@@ -7,10 +7,10 @@ using static SimpleVisualizer;
 public class Visualizer : MonoBehaviour
 {
     public LSystem lsystem;
-    List<Vector3> positions = new List<Vector3>();
 
     public RoadHelper roadHelper;
     public BuildingHelper buildingHelper;
+    public GroundHelper groundHelper;
 
     private int length=2;
     private float angle = 90;
@@ -33,6 +33,15 @@ public class Visualizer : MonoBehaviour
 
     private void Start()
     {
+        create();
+    }
+
+    public void create()
+    {
+        length = 2;
+        roadHelper.delete();
+        buildingHelper.delete();
+        groundHelper.delete();
         var sequence = lsystem.Generate();
         VisualizeSequence(sequence);
     }
@@ -45,7 +54,6 @@ public class Visualizer : MonoBehaviour
         Vector3 direction = Vector3.forward;
         Vector3 tempPosition = Vector3.zero;
 
-        positions.Add(currentPosition);
 
         foreach (var letter in sequence)
         {
@@ -77,15 +85,11 @@ public class Visualizer : MonoBehaviour
                     tempPosition = currentPosition;
                     currentPosition += direction * Length;
                     roadHelper.PlaceRoad(tempPosition,Vector3Int.RoundToInt(direction),Length);
-                    //Length -= 2;
-                    positions.Add(currentPosition);
                     break;
                 case EncodingLetters.draw2:
                     tempPosition = currentPosition;
                     currentPosition += direction * Length;
                     roadHelper.PlaceRoad(tempPosition, Vector3Int.RoundToInt(direction), Length);
-                    //Length -= 2;
-                    positions.Add(currentPosition);
                     break;
                 case EncodingLetters.turnRight:
                     direction = Quaternion.AngleAxis(angle, Vector3.up) * direction;
@@ -99,5 +103,6 @@ public class Visualizer : MonoBehaviour
         }
         roadHelper.FixRoad();
         buildingHelper.placeBuildings(roadHelper.getRoads());
+        groundHelper.placeGrounds(buildingHelper.GetBuildings(),roadHelper.getRoads());
     }
 }
