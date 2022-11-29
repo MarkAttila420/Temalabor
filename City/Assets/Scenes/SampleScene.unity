@@ -155,6 +155,7 @@ MonoBehaviour:
   lsystem: {fileID: 1862837233}
   roadHelper: {fileID: 1391553515}
   buildingHelper: {fileID: 629220082}
+  groundHelper: {fileID: 821468244}
 --- !u!4 &93893529
 Transform:
   m_ObjectHideFlags: 0
@@ -1704,6 +1705,56 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &821468243
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 821468245}
+  - component: {fileID: 821468244}
+  m_Layer: 0
+  m_Name: GroundHelper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &821468244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821468243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d24a2a5b8670cc4ea22746bbe573db7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundTypes:
+  - {fileID: 919132149155446097, guid: 19713c884a97119439bbddc74858983d, type: 3}
+  - {fileID: 919132149155446097, guid: 8464c06237a169148bca6f4ee275cdd3, type: 3}
+  - {fileID: 919132149155446097, guid: 145d9e7d02c5cc94a99d9ff9495c2537, type: 3}
+  - {fileID: 919132149155446097, guid: 8e80e672165c0a44a9f1a41c69abb611, type: 3}
+  sizeAroundBuildings: 5
+--- !u!4 &821468245
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821468243}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 199.26956, y: 2.6658053, z: -157.65715}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &854315385
 GameObject:
   m_ObjectHideFlags: 0
@@ -1770,7 +1821,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
@@ -2935,7 +2986,7 @@ RectTransform:
   - {fileID: 707746364}
   - {fileID: 485033002}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

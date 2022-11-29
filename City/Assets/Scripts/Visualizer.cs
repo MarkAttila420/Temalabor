@@ -10,6 +10,7 @@ public class Visualizer : MonoBehaviour
 
     public RoadHelper roadHelper;
     public BuildingHelper buildingHelper;
+    public GroundHelper groundHelper;
 
     private int length=2;
     private float angle = 90;
@@ -40,6 +41,7 @@ public class Visualizer : MonoBehaviour
         length = 2;
         roadHelper.delete();
         buildingHelper.delete();
+        groundHelper.delete();
         var sequence = lsystem.Generate();
         VisualizeSequence(sequence);
     }
@@ -101,5 +103,6 @@ public class Visualizer : MonoBehaviour
         }
         roadHelper.FixRoad();
         buildingHelper.placeBuildings(roadHelper.getRoads());
+        groundHelper.placeGrounds(buildingHelper.GetBuildings(),roadHelper.getRoads());
     }
 }

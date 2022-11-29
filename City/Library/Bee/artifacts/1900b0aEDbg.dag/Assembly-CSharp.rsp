@@ -360,6 +360,7 @@
 "Assets/Scripts/BuildingType.cs"
 "Assets/Scripts/Direction.cs"
 "Assets/Scripts/EncodingLetters.cs"
+"Assets/Scripts/GroundHelper.cs"
 "Assets/Scripts/LSystem.cs"
 "Assets/Scripts/PlacementHelper.cs"
 "Assets/Scripts/RoadHelper.cs"

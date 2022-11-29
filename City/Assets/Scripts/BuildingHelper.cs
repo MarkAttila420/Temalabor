@@ -55,6 +55,20 @@ public class BuildingHelper : MonoBehaviour
             maxText.text = new StringBuilder($"Maximum building height: {maximumMiddle.ToString()}").ToString();
         });
     }
+    
+    public List<Vector3Int> GetBuildings() 
+    {
+        List<Vector3Int> positions = new List<Vector3Int>();
+        foreach (var item in dictionary.Keys)
+        {
+            if (item.y==0)
+            {
+                positions.Add(item); 
+            }
+        }
+        return positions;
+
+    }
     public void placeBuildings(List<Vector3Int> roads)
     {
         Dictionary<Vector3Int, Direction> freeSpots = FindFreeSpots(roads);
