@@ -1,9 +1,15 @@
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Slider = UnityEngine.UI.Slider;
+using Toggle = UnityEngine.UI.Toggle;
 
 public class LSystem : MonoBehaviour
 {
@@ -16,10 +22,35 @@ public class LSystem : MonoBehaviour
     [Range(0, 1)]
     public float chanceToIgnore=0.3f;
 
-    private void Start()
+
+
+    [SerializeField] private Slider depthSlider;
+    [SerializeField] private TextMeshProUGUI depthText;
+    [SerializeField] private Slider randomSlider;
+    [SerializeField] private TextMeshProUGUI randomText;
+    [SerializeField] private Toggle randomToggle;
+    void Start()
     {
-        Debug.Log(Generate());
+        depthText.text = new StringBuilder($"LSystem depth: {maxDepth.ToString()}").ToString();
+        depthSlider.value = maxDepth;
+        randomText.text = new StringBuilder($"Ignore chance: {chanceToIgnore.ToString("0.00")}").ToString();
+        randomSlider.value = chanceToIgnore;
+        randomToggle.isOn = IgnoreRandom;
+        depthSlider.onValueChanged.AddListener((value) =>
+        {
+            maxDepth = (int)value;
+            depthText.text = new StringBuilder($"LSystem depth: {maxDepth.ToString()}").ToString();
+        });
+        randomSlider.onValueChanged.AddListener((value) =>
+        {
+            chanceToIgnore = value;
+            randomText.text = new StringBuilder($"Ignore chance: {chanceToIgnore.ToString("0.00")}").ToString();
+        });
+        randomToggle.onValueChanged.AddListener((value) => { IgnoreRandom = value; });
+
     }
+
+
     public string Generate(string sentence=null)
     {
         if (sentence==null) 
