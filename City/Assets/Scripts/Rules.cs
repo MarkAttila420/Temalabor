@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+//Ez az osztaly, az amivel a szabalyokat letre lehet hozni, amiket az LSystem-ben hasznalunk.
 [CreateAssetMenu(menuName = "Rule")]
 public class Rules : ScriptableObject
 {

@@ -2,25 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Ez az osztaly felelos a fold-ek lerakasaert
 public class GroundHelper : MonoBehaviour
 {
     public GameObject[] groundTypes;
     public Dictionary<Vector3Int, GameObject> dictionary = new Dictionary<Vector3Int, GameObject>();
     public int sizeAroundBuildings = 5;
 
+
+    //minden epulet korul lesz 'sizeAroundBuildings'*2+1 teruletu fold.
     public void placeGrounds(List<Vector3Int> buildings, List<Vector3Int> roads)
     {
-        bool paros = true;
         foreach (var item in buildings)
         {
-            if (paros)
-            {
-                placeGroundAroundBuilding(item, buildings, roads);
-            }
-
+            placeGroundAroundBuilding(item, buildings, roads);
         }
-
     }
+    //Az adott epulet koruli 'sizeAroundBuildings'*2+1 teruleten az osszes olyan koordinatara, ami nem epulet vagy ut foldet tesz.
     public void placeGroundAroundBuilding(Vector3Int pos, List<Vector3Int> buildings, List<Vector3Int> roads)
     {
         for (int i = -sizeAroundBuildings; i <= sizeAroundBuildings; i++)

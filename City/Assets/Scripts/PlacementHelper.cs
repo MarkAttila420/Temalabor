@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 
 public static class PlacementHelper
 {
+    //Megadja, hogy a 'pos'-hoz kepest melyik iranyban talalhatoak 'collection' beli elemek 
     public static List<Direction> FindNeighbours(Vector3Int pos, ICollection<Vector3Int> collection)
     {
         List<Direction> neighbourDirections = new List<Direction>();
@@ -16,6 +17,7 @@ public static class PlacementHelper
         return neighbourDirections;
     }
 
+    //Az iranynat az ellenkezojet adja vissza
     public static Direction GetDirection(Direction dir)
     {
         switch (dir)
@@ -31,6 +33,7 @@ public static class PlacementHelper
         }
     }
 
+    //Ez a fuggveny az epulet elhelyezesenel van hasznalva, a 'dir' az azt jelenti, hogy az uttol melyik iranyba van a lehelyezendo ut
     internal static Vector3Int GetOffset(Direction dir)
     {
         switch (dir)
