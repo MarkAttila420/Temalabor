@@ -1,0 +1,3 @@
+https://en.wikipedia.org/wiki/L-system#Stochastic_grammars
+https://hu.wikipedia.org/wiki/Lindenmayer_Arisztid
+https://cgjennings.ca/articles/l-systems/

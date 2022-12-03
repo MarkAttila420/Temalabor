@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using static SimpleVisualizer;
 
+//Ez az osztaly jeleniti meg a varost.
 public class Visualizer : MonoBehaviour
 {
     public LSystem lsystem;
@@ -13,21 +13,10 @@ public class Visualizer : MonoBehaviour
     public GroundHelper groundHelper;
 
     private int length=2;
-    private float angle = 90;
 
     public int Length
     {
-        get
-        {
-            if (length > 1)
-            {
-                return length;
-            }
-            else
-            {
-                return UnityEngine.Random.Range(2,4);
-            }
-        }
+        get => length;
         set => length = value;
     }
 
@@ -36,6 +25,7 @@ public class Visualizer : MonoBehaviour
         create();
     }
 
+    //ez a fuggveny hivodik meg minding, amikor  felhasznalo megnyomja a generate gombot, es a jatek indulasakor, eloszor torli az elozoleg legeneralt varost, es ujat hoz letre.
     public void create()
     {
         length = 2;
@@ -46,6 +36,7 @@ public class Visualizer : MonoBehaviour
         VisualizeSequence(sequence);
     }
 
+    //Az Lsystem altal legeneralt stringet megjeleniti.
     private void VisualizeSequence(string sequence)
     {
         Stack<AgentParameters> savePoints = new Stack<AgentParameters>();
@@ -60,7 +51,7 @@ public class Visualizer : MonoBehaviour
             EncodingLetters encoding = (EncodingLetters)letter;
             switch (encoding)
             {
-                case EncodingLetters.save:
+                case EncodingLetters.save://elmenti azt a poziciot, ahol jelenleg van a "teknos".
                     savePoints.Push(new AgentParameters
                     {
                         pos = currentPosition,
@@ -68,7 +59,7 @@ public class Visualizer : MonoBehaviour
                         length = Length
                     });
                     break;
-                case EncodingLetters.load:
+                case EncodingLetters.load://visszamegy arra a poziciora, amit legutoljara mentett el.
                     if (savePoints.Count > 0)
                     {
                         var agentParameter = savePoints.Pop();
@@ -81,6 +72,7 @@ public class Visualizer : MonoBehaviour
                         throw new System.Exception("Dont have saved point in our stack");
                     }
                     break;
+                    //Azert van draw es draw2, mert az F es a G betu hatasara, ugyanugy rajzolnia kell a "teknosnek", de az F-hez es a G-hez mas szabajok tartoznak.
                 case EncodingLetters.draw:
                     tempPosition = currentPosition;
                     currentPosition += direction * Length;
@@ -92,10 +84,10 @@ public class Visualizer : MonoBehaviour
                     roadHelper.PlaceRoad(tempPosition, Vector3Int.RoundToInt(direction), Length);
                     break;
                 case EncodingLetters.turnRight:
-                    direction = Quaternion.AngleAxis(angle, Vector3.up) * direction;
+                    direction = Quaternion.AngleAxis(90, Vector3.up) * direction;
                     break;
                 case EncodingLetters.turnLeft:
-                    direction = Quaternion.AngleAxis(-angle, Vector3.up) * direction;
+                    direction = Quaternion.AngleAxis(-90, Vector3.up) * direction;
                     break;
                 default:
                     break;

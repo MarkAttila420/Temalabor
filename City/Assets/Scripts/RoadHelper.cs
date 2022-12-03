@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+//Ez az osztaly felelos az utak elhelyezesert
 public class RoadHelper : MonoBehaviour
 {
     public GameObject straight, corner, end, intersect3, intersect4;
@@ -13,6 +14,9 @@ public class RoadHelper : MonoBehaviour
     {
         return dictionary.Keys.ToList();
     }
+
+    //Lerak 'length' darab utat a 'start' koordinatabol kiindul, a 'dir' iranyba.
+    //Ezek kozul az elsot, meg az utolsot amit lerakott belerakja a megfixalando utak-ba, mivel ez a ketto vagy egy ut veget jelentik, vagy egy kanyart, vagy egy keresztezodest. 
     public void PlaceRoad(Vector3 start,Vector3Int dir, int length)
     {
         var rotation=Quaternion.identity;
@@ -36,6 +40,7 @@ public class RoadHelper : MonoBehaviour
         }
     }
 
+    //Azokat az utakat, amiket beleraktunk a megfixalandokba, azokon vegigmegy, es az alapjan, hogy hany szomszedja van, es azok milyen iranyba neznek, kicsereli es elforgatja oket.
     public void FixRoad()
     {
         foreach (var pos in fixRoadType)
@@ -85,22 +90,15 @@ public class RoadHelper : MonoBehaviour
             else if (neighbours.Count == 3)
             {
                 Destroy(dictionary[pos]);
-                if (neighbours.Contains(Direction.Right)
-                    && neighbours.Contains(Direction.Down)
-                    && neighbours.Contains(Direction.Left)
-                    )
+                if (!neighbours.Contains(Direction.Up))
                 {
                     rotation = Quaternion.Euler(0, 90, 0);
                 }
-                else if (neighbours.Contains(Direction.Down)
-                    && neighbours.Contains(Direction.Left)
-                    && neighbours.Contains(Direction.Up))
+                else if (!neighbours.Contains(Direction.Right))
                 {
                     rotation = Quaternion.Euler(0, 180, 0);
                 }
-                else if (neighbours.Contains(Direction.Left)
-                    && neighbours.Contains(Direction.Up)
-                    && neighbours.Contains(Direction.Right))
+                else if (neighbours.Contains(Direction.Down))
                 {
                     rotation = Quaternion.Euler(0, -90, 0);
                 }

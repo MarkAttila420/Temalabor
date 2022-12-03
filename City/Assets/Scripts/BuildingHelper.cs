@@ -69,6 +69,8 @@ public class BuildingHelper : MonoBehaviour
         return positions;
 
     }
+
+    //Ez a fuggveny helyezi le az osszes epuletet, az utak korul.
     public void placeBuildings(List<Vector3Int> roads)
     {
         Dictionary<Vector3Int, Direction> freeSpots = FindFreeSpots(roads);
@@ -107,6 +109,7 @@ public class BuildingHelper : MonoBehaviour
         }
     }
 
+    //DFS: megnezi, hogy az adott epulet koordinataja korul mennyi szabad hely van, es ha kevesebb, mint 8, akkor oda egy magas epuletet rak le, ellenkezo esetben pedig egy kerteshazat. 
     private int FindAreaSize(Vector3Int spot, List<Vector3Int> roads,List<Vector3Int> visited, int depth, int areaSize)
     {
         if (roads.Contains(spot)||visited.Contains(spot)||depth<=0)
@@ -126,11 +129,14 @@ public class BuildingHelper : MonoBehaviour
         return areaSize;
     }
 
+    //Ez a fuggveny megjelenit egy kerteshazat.
     private GameObject SpawnSmallBuilding(Vector3Int pos, Quaternion rotation)
     {
         var newBuilding=Instantiate(buildings[0].getPrefab(), pos, rotation, transform);
         return newBuilding;
     }
+
+    //Ez a fuggveny megjelenit egy felhokarcolot, ugy hogy megjeleniti a legaljat eloszor, es utana veletlenszeruen valamennyi kozepso reszt, majd egy tetot.
     private List<GameObject> SpawnTallBuilding(Vector3 pos, Quaternion rotation)
     {
         List<GameObject> tallBuilding = new List<GameObject>();
@@ -164,6 +170,7 @@ public class BuildingHelper : MonoBehaviour
         return tallBuilding;
     }
 
+    //Ez a fuggveny visszaadja, hogy az utak kore hova lehet elhelyezni epuletet
     private Dictionary<Vector3Int, Direction> FindFreeSpots(List<Vector3Int> roads)
     {
         Dictionary<Vector3Int, Direction> freeSpots = new Dictionary<Vector3Int, Direction>();

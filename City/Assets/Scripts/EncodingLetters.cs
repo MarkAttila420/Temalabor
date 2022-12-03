@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Az LSystem-ben a karakterek, es azok jelentese
 public enum EncodingLetters
 {
     unknown = '1',

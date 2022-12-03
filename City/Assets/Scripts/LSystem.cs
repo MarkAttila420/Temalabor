@@ -60,6 +60,7 @@ public class LSystem : MonoBehaviour
         return Rekurzio(sentence);
     }
 
+    //Ez a fuggveny megy vegig a szon es minden beture meghivja a RulesRekurziot.
     private string Rekurzio(string sentence, int depth=0)
     {
         if (depth>=maxDepth)
@@ -75,6 +76,8 @@ public class LSystem : MonoBehaviour
         }
         return newSentence.ToString();
     }
+    //Ez a fuggveny vegigmegy az osszes szabalyon,
+    //es amelyiknek az a betu van megadva, mint amelyiknel a Rekurzio fuggveny tart jelenleg, annak az egyik szabalyat hasznalva, annak a karakternek a helyere berakja a szabalyban leirt string-et. 
     private void RulesRekurzio(StringBuilder newSentence, char c, int depth)
     {
         foreach (var rule in rules)
