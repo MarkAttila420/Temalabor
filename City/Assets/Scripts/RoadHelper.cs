@@ -90,22 +90,15 @@ public class RoadHelper : MonoBehaviour
             else if (neighbours.Count == 3)
             {
                 Destroy(dictionary[pos]);
-                if (neighbours.Contains(Direction.Right)
-                    && neighbours.Contains(Direction.Down)
-                    && neighbours.Contains(Direction.Left)
-                    )
+                if (!neighbours.Contains(Direction.Up))
                 {
                     rotation = Quaternion.Euler(0, 90, 0);
                 }
-                else if (neighbours.Contains(Direction.Down)
-                    && neighbours.Contains(Direction.Left)
-                    && neighbours.Contains(Direction.Up))
+                else if (!neighbours.Contains(Direction.Right))
                 {
                     rotation = Quaternion.Euler(0, 180, 0);
                 }
-                else if (neighbours.Contains(Direction.Left)
-                    && neighbours.Contains(Direction.Up)
-                    && neighbours.Contains(Direction.Right))
+                else if (neighbours.Contains(Direction.Down))
                 {
                     rotation = Quaternion.Euler(0, -90, 0);
                 }
