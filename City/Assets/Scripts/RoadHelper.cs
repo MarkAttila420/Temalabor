@@ -7,6 +7,7 @@ using UnityEngine;
 public class RoadHelper : MonoBehaviour
 {
     public GameObject straight, corner, end, intersect3, intersect4;
+
     Dictionary<Vector3Int, GameObject> dictionary=new Dictionary<Vector3Int, GameObject>();
     HashSet<Vector3Int> fixRoadType=new HashSet<Vector3Int>();
 
@@ -98,7 +99,7 @@ public class RoadHelper : MonoBehaviour
                 {
                     rotation = Quaternion.Euler(0, 180, 0);
                 }
-                else if (neighbours.Contains(Direction.Down))
+                else if (!neighbours.Contains(Direction.Down))
                 {
                     rotation = Quaternion.Euler(0, -90, 0);
                 }
