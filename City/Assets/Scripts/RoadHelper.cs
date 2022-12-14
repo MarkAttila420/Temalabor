@@ -1,7 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.AI;
+using static UnityEditor.PlayerSettings;
 
 //Ez az osztaly felelos az utak elhelyezesert
 public class RoadHelper : MonoBehaviour
@@ -9,6 +13,7 @@ public class RoadHelper : MonoBehaviour
     public GameObject straight, corner, end, intersect3, intersect4;
     Dictionary<Vector3Int, GameObject> dictionary=new Dictionary<Vector3Int, GameObject>();
     HashSet<Vector3Int> fixRoadType=new HashSet<Vector3Int>();
+    public NavMeshBaker navMeshBaker;
 
     public List<Vector3Int> getRoads()
     {
@@ -30,6 +35,7 @@ public class RoadHelper : MonoBehaviour
             if (!dictionary.ContainsKey(pos))
             {
                 var road = Instantiate(straight, pos, rotation);
+                road.transform.parent = GameObject.Find("Roads").transform;
                 dictionary.Add(pos, road);
                 if (i == 0 || i == length - 1)
                 {
@@ -65,6 +71,7 @@ public class RoadHelper : MonoBehaviour
                     rotation = Quaternion.Euler(0, -90, 0);
                 }
                 dictionary[pos] = Instantiate(end, pos, rotation, transform);
+                dictionary[pos].transform.parent = GameObject.Find("Roads").transform;
             }
             else if (neighbours.Count == 2)
             {
@@ -86,6 +93,7 @@ public class RoadHelper : MonoBehaviour
                     rotation = Quaternion.Euler(0, -90, 0);
                 }
                 dictionary[pos] = Instantiate(corner, pos, rotation, transform);
+                dictionary[pos].transform.parent = GameObject.Find("Roads").transform;
             }
             else if (neighbours.Count == 3)
             {
@@ -98,16 +106,18 @@ public class RoadHelper : MonoBehaviour
                 {
                     rotation = Quaternion.Euler(0, 180, 0);
                 }
-                else if (neighbours.Contains(Direction.Down))
+                else if (!neighbours.Contains(Direction.Down))
                 {
                     rotation = Quaternion.Euler(0, -90, 0);
                 }
                 dictionary[pos] = Instantiate(intersect3, pos, rotation, transform);
+                dictionary[pos].transform.parent = GameObject.Find("Roads").transform;
             }
             else
             {
                 Destroy(dictionary[pos]);
                 dictionary[pos] = Instantiate(intersect4, pos, rotation, transform);
+                dictionary[pos].transform.parent = GameObject.Find("Roads").transform;
             }
         }
     }
@@ -121,4 +131,62 @@ public class RoadHelper : MonoBehaviour
         dictionary.Clear();
         fixRoadType = new HashSet<Vector3Int>();
     }
-}
+
+    public void attachObstacles()
+    {
+        foreach(var pos in dictionary.Keys)
+        {
+            List<Direction> neighbours = PlacementHelper.FindNeighbours(pos, dictionary.Keys);
+            var obstacle = dictionary[pos].transform.GetChild(0).AddComponent<NavMeshObstacle>();
+            obstacle.carving = true;
+            if (neighbours.Count == 1)
+            {               
+                obstacle.size = new Vector3(0.75f, 1, 0.6f);
+                obstacle.center = new Vector3(0.075f, 0, 0);            }
+            else if (neighbours.Count == 2)
+            {
+                if (neighbours.Contains(Direction.Up) && neighbours.Contains(Direction.Down) || neighbours.Contains(Direction.Right) && neighbours.Contains(Direction.Left))
+                {
+                    obstacle.size = new Vector3(0.9f, 1, 0.6f);
+                    obstacle.center = new Vector3(0.01f, 0, 0);
+                }
+                else
+                {
+                    obstacle.size = new Vector3(0.6f, 1, 0.6f);
+                    obstacle.center = new Vector3(-0.16f, 0, 0);
+
+                    GameObject child = new() { name = "ObstacleExtra" };
+                    child.transform.position = pos;
+                    child.transform.parent = dictionary[pos].transform.GetChild(0).transform;
+
+                    var obstacleExtra = dictionary[pos].transform.GetChild(0).GetChild(0).AddComponent<NavMeshObstacle>();
+                    obstacleExtra.size = new Vector3(0.6f, 1, 0.6f);
+                    obstacleExtra.center = new Vector3(0, 0, 0.16f);
+                    obstacleExtra.carving = true;
+
+                    if (neighbours.Contains(Direction.Left) && neighbours.Contains(Direction.Up))
+                    {                    
+                        child.transform.rotation = Quaternion.Euler(0, 0, 0);             
+                    }
+                    else if (neighbours.Contains(Direction.Left) && neighbours.Contains(Direction.Down))
+                    {
+                        child.transform.rotation = Quaternion.Euler(0, -90, 0);
+                    }
+                    else if (neighbours.Contains(Direction.Up) && neighbours.Contains(Direction.Right)) 
+                    {
+                        child.transform.rotation = Quaternion.Euler(0, 90, 0);
+                    }
+                    else
+                    {
+                        child.transform.rotation = Quaternion.Euler(0, 180, 0);
+                    }
+                }
+            }
+            else
+            {
+                obstacle.size = new Vector3(0.6f, 1, 0.6f);
+                obstacle.center = new Vector3(0, 0, 0);
+            }  
+        }
+    }
+}   

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -11,6 +12,8 @@ public class Visualizer : MonoBehaviour
     public RoadHelper roadHelper;
     public BuildingHelper buildingHelper;
     public GroundHelper groundHelper;
+    public PedestrianSpawner pedestrian;
+    public NavMeshBaker navMeshBaker;
 
     private int length=2;
 
@@ -32,8 +35,12 @@ public class Visualizer : MonoBehaviour
         roadHelper.delete();
         buildingHelper.delete();
         groundHelper.delete();
+        pedestrian.delete();
         var sequence = lsystem.Generate();
         VisualizeSequence(sequence);
+        navMeshBaker.bake();
+        roadHelper.attachObstacles();
+        pedestrian.spawnAllPerson(lsystem.numberOfPedestrians);
     }
 
     //Az Lsystem altal legeneralt stringet megjeleniti.
